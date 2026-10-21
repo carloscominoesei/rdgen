@@ -212,6 +212,13 @@ jobs:
           find ./src/lang -name "*.rs" -exec sed -i -e 's|RustDesk|${{ env.appname }}|' {} \;
           sed -i -e 's|RustDesk|${{ env.appname }}|' ./res/msi/Package/License.rtf
           
+      - name: custom install tip (es)
+        continue-on-error: true
+        shell: bash
+        run: |
+          sed -i '/("install_tip", /c\("install_tip", "Instalar en el equipo para poder controlar ventanas de administrador."),' ./src/lang/es.rs
+          grep -n "install_tip" ./src/lang/es.rs
+
       - name: change company name
         if: env.compname != 'Purslane Ltd'
         continue-on-error: true
